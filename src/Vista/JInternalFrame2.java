@@ -52,32 +52,29 @@ public class JInternalFrame2 extends JInternalFrame {
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jPanel7 = new javax.swing.JPanel();
-        acceptJButton = new javax.swing.JButton();
-        deleteClientButton = new javax.swing.JButton();
+        acceptClientJButton = new javax.swing.JButton();
+        deleteClientJButton = new javax.swing.JButton();
         jScrollPane8 = new javax.swing.JScrollPane();
         miModelo = new Vista.ClientTableModel(true);
-        //modeloOrdenado = new TableSorter(miModelo);
         clientJTableForm = new javax.swing.JTable();
-        //JTableHeader header2 = clientJTableForm.getTableHeader();
-        //modeloOrdenado.setTableHeader(header2);
         jPanel4 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        buscaJTextField = new javax.swing.JTextField();
-        addClientButton = new javax.swing.JButton();
+        clientSearchJLabel = new javax.swing.JLabel();
+        clientSearchJTextField = new javax.swing.JTextField();
+        addClientJButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        acceptJButton.setText("Acceptar");
-        acceptJButton.addActionListener(new java.awt.event.ActionListener() {
+        acceptClientJButton.setText("Acceptar");
+        acceptClientJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                acceptJButtonActionPerformed(evt);
+                acceptClientJButtonActionPerformed(evt);
             }
         });
 
-        deleteClientButton.setText("Borrar");
-        deleteClientButton.addActionListener(new java.awt.event.ActionListener() {
+        deleteClientJButton.setText("Borrar");
+        deleteClientJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteClientButtonActionPerformed(evt);
+                deleteClientJButtonActionPerformed(evt);
             }
         });
 
@@ -93,18 +90,18 @@ public class JInternalFrame2 extends JInternalFrame {
         });
         jScrollPane8.setViewportView(clientJTableForm);
 
-        jLabel1.setText("Busca:");
+        clientSearchJLabel.setText("Busca:");
 
-        buscaJTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+        clientSearchJTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                buscaJTextFieldKeyReleased(evt);
+                clientSearchJTextFieldKeyReleased(evt);
             }
         });
 
-        addClientButton.setText("Afegir Client Sobre Taula");
-        addClientButton.addActionListener(new java.awt.event.ActionListener() {
+        addClientJButton.setText("Afegir Client Sobre Taula");
+        addClientJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addClientButtonActionPerformed(evt);
+                addClientJButtonActionPerformed(evt);
             }
         });
 
@@ -114,11 +111,11 @@ public class JInternalFrame2 extends JInternalFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jLabel1)
+                .addComponent(clientSearchJLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buscaJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(clientSearchJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(addClientButton)
+                .addComponent(addClientJButton)
                 .addGap(63, 63, 63))
         );
         jPanel4Layout.setVerticalGroup(
@@ -126,9 +123,9 @@ public class JInternalFrame2 extends JInternalFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buscaJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(addClientButton))
+                    .addComponent(clientSearchJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(clientSearchJLabel)
+                    .addComponent(addClientJButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -140,9 +137,9 @@ public class JInternalFrame2 extends JInternalFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(acceptJButton)
+                        .addComponent(acceptClientJButton)
                         .addGap(75, 75, 75)
-                        .addComponent(deleteClientButton)
+                        .addComponent(deleteClientJButton)
                         .addGap(226, 226, 226))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addContainerGap()
@@ -160,8 +157,8 @@ public class JInternalFrame2 extends JInternalFrame {
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(deleteClientButton)
-                    .addComponent(acceptJButton))
+                    .addComponent(deleteClientJButton)
+                    .addComponent(acceptClientJButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -196,10 +193,10 @@ public class JInternalFrame2 extends JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void acceptJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptJButtonActionPerformed
+    private void acceptClientJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptClientJButtonActionPerformed
         if (isEditing) {
             JOptionPane.showMessageDialog(this,
-                    "No pots eliminar un client mentre estàs editant una cel.la.", "Informació",
+                    "No pots acceptar un client mentre estàs editant una cel.la.", "Informació",
                     JOptionPane.INFORMATION_MESSAGE);
         } else {
             int selectedRow = clientJTableForm.getSelectedRow();
@@ -211,66 +208,68 @@ public class JInternalFrame2 extends JInternalFrame {
                     super.dispose();
                 } else {
                     JOptionPane.showMessageDialog(this,
-                            "Per a acceptar un client primer has de seleccionar un registre complet.", "Informació",
+                            "No pots acceptar un client sense seleccionar un registre finalitzat.", "Informació",
                             JOptionPane.INFORMATION_MESSAGE);
                 }
             } else {
                 JOptionPane.showMessageDialog(this,
-                        "Per a acceptar un client primer has de seleccionar un registre.", "Informació",
+                        "No pots acceptar un client sense seleccionar un registre.", "Informació",
                         JOptionPane.INFORMATION_MESSAGE);
             }
         }
-    }//GEN-LAST:event_acceptJButtonActionPerformed
+    }//GEN-LAST:event_acceptClientJButtonActionPerformed
 
-    private void deleteClientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteClientButtonActionPerformed
+    private void deleteClientJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteClientJButtonActionPerformed
         if (isEditing) {
             JOptionPane.showMessageDialog(this,
                     "No pots eliminar un client mentre estàs editant una cel.la.", "Informació",
                     JOptionPane.INFORMATION_MESSAGE);
         } else {
             if (lastSelectedRow != -1) {
-                Client c = (Client) miModelo.clientData.get(lastSelectedRow);
-                if (c.getCodi_id() == null || c.getCodi_id().equals("")) {
-                    JOptionPane.showMessageDialog(this,
-                            "No pots eliminar un registre que está en construcció.", "Informació",
-                            JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    int selection = JOptionPane.showConfirmDialog(this,
-                            "Estas segur d'eliminar el següent client?\n\n" + c.toString(), "Eliminar",
-                            JOptionPane.YES_NO_OPTION,
-                            JOptionPane.INFORMATION_MESSAGE);
+                if (!miModelo.getIsClientEditing()) {
+                    Client c = (Client) miModelo.clientData.get(lastSelectedRow);
+                    if (c.getCodi_id() != null && !c.getCodi_id().equals("")) {
+                        int selection = JOptionPane.showConfirmDialog(this,
+                                "Estas segur d'eliminar el següent client?\n\n" + c.toString(), "Eliminar",
+                                JOptionPane.YES_NO_OPTION,
+                                JOptionPane.INFORMATION_MESSAGE);
 
-                    if (selection == JOptionPane.YES_OPTION) {
-                        miModelo.removeRow(lastSelectedRow);
-                        returnInitialState();
+                        if (selection == JOptionPane.YES_OPTION) {
+                            miModelo.removeRow(lastSelectedRow);
+                            returnInitialState();
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this,
+                                "No pots eliminar un client sense seleccionar un registre finalitzat.", "Informació",
+                                JOptionPane.INFORMATION_MESSAGE);
                     }
+                } else {
+                    JOptionPane.showMessageDialog(this,
+                            "No pots eliminar un client mentre hi ha un registre per finalitzar.", "Informació",
+                            JOptionPane.INFORMATION_MESSAGE);
                 }
             } else {
                 JOptionPane.showMessageDialog(this,
-                        "Selecciona un client per a la seua eliminació.", "Informació",
+                        "No pots eliminar un client sense seleccionar un registre.", "Informació",
                         JOptionPane.INFORMATION_MESSAGE);
             }
         }
-    }//GEN-LAST:event_deleteClientButtonActionPerformed
+    }//GEN-LAST:event_deleteClientJButtonActionPerformed
 
-    private void buscaJTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscaJTextFieldKeyReleased
-        // Alternative 1:
-        //miModelo.updateData(buscaJTextField.getText());
-
-        // Alternative 2:
+    private void clientSearchJTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_clientSearchJTextFieldKeyReleased
         // Si no s'està introduint un nou client, es podrà realitzar una búsqueda:
         if (!miModelo.getIsClientEditing()) {
             if (isEditing) {
-                int length = buscaJTextField.getText().length();
+                int length = clientSearchJTextField.getText().length();
 
                 // Si hi havia text al buscador abans d'introduïr el nou caràcter,
                 // no deixarem afegir-ne més, però el text anterior es mantindrà:
                 if (length > 1) {
-                    buscaJTextField.setText(buscaJTextField.getText().substring(0, length - 1));
+                    clientSearchJTextField.setText(clientSearchJTextField.getText().substring(0, length - 1));
                     // Si en canvi al buscador sols hi ha un caràcter (l'acabat
                     // d'introduïr), borrarem el contingut del buscador per complet:
                 } else {
-                    buscaJTextField.setText("");
+                    clientSearchJTextField.setText("");
                 }
 
                 JOptionPane.showMessageDialog(this,
@@ -278,16 +277,16 @@ public class JInternalFrame2 extends JInternalFrame {
                         JOptionPane.INFORMATION_MESSAGE);
             } else {
                 lastSelectedRow = -1;
-                miModelo.performSearch(lastSelectedColumn, buscaJTextField.getText());
+                miModelo.performSearch(lastSelectedColumn, clientSearchJTextField.getText());
             }
             // En canvi, si s'està introduint un nou client, no es podrà realitzar una búsqueda:
         } else {
-            buscaJTextField.setText("");
+            clientSearchJTextField.setText("");
             JOptionPane.showMessageDialog(this,
-                    "No pots realitzar una búsqueda mentre hi ha una cel.la en construcció.", "Informació",
+                    "No pots realitzar una búsqueda mentre hi ha un registre per finalitzar.", "Informació",
                     JOptionPane.INFORMATION_MESSAGE);
         }
-    }//GEN-LAST:event_buscaJTextFieldKeyReleased
+    }//GEN-LAST:event_clientSearchJTextFieldKeyReleased
 
     private void clientJTableFormMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clientJTableFormMousePressed
         if (evt.getClickCount() == 2) {
@@ -310,17 +309,18 @@ public class JInternalFrame2 extends JInternalFrame {
             // ... la última columna polsada serà la columna que acabem de polsar.
             lastSelectedColumn = selectedColumn;
 
-            // Açò ens permetrà desplaçar-nos a la nova columna polsada i
-            // carregar de nou totes les dades des de cero per poder iniciar
-            // una nova búsqueda:
+            // Si no s'està editant cap cel.la:
             if (!miModelo.getIsClientEditing()) {
+                // Açò ens permetrà desplaçar-nos a la nova columna polsada i
+                // carregar de nou totes les dades des de cero per poder iniciar
+                // una nova búsqueda:
                 miModelo.performSearch(lastSelectedColumn, "");
-                buscaJTextField.setText("");
-            }
+                clientSearchJTextField.setText("");
 
-            // Modifiquem el color del fons de les columnes segons quina estigui
-            // seleccionada:
-            paintColumns(selectedColumn);
+                // Modifiquem el color del fons de les columnes segons quina estigui
+                // seleccionada:
+                paintColumns(selectedColumn);
+            }
         }
 
         // Mantenim el focus sobre el registre seleccionat:
@@ -328,12 +328,15 @@ public class JInternalFrame2 extends JInternalFrame {
         clientJTableForm.changeSelection(selectedRow, selectedColumn, false, false);
     }//GEN-LAST:event_clientJTableFormMouseClicked
 
-    private void addClientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addClientButtonActionPerformed
+    private void addClientJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addClientJButtonActionPerformed
         if (isEditing) {
             JOptionPane.showMessageDialog(this,
-                    "No pots afegir un client mentre s'està editant una cel.la.", "Informació",
+                    "No pots afegir un nou client mentre s'està editant una cel.la.", "Informació",
                     JOptionPane.INFORMATION_MESSAGE);
         } else if (!miModelo.getIsClientEditing()) {
+            miModelo.performSearch(lastSelectedColumn, "");
+            clientSearchJTextField.setText("");
+
             Client c = new Client();
             c.setNom(null);
             c.setDni(null);
@@ -341,14 +344,13 @@ public class JInternalFrame2 extends JInternalFrame {
             c.setCodi_postal(null);
             c.setN_de_portal(null);
 
-            miModelo.addClient(c, lastSelectedRow);
-            //returnInitialState();
+            miModelo.addClient(c);
         } else {
             JOptionPane.showMessageDialog(this,
-                    "No pots afegir un client nou mentre ja hi ha d'un en construcció.", "Informació",
+                    "No pots afegir un nou client mentre hi ha un registre per finalitzar.", "Informació",
                     JOptionPane.INFORMATION_MESSAGE);
         }
-    }//GEN-LAST:event_addClientButtonActionPerformed
+    }//GEN-LAST:event_addClientJButtonActionPerformed
 
     public void paintColumns(int selectedColumn) {
         for (int i = 0; i < tableColumnModel.getColumnCount(); i++) {
@@ -372,7 +374,7 @@ public class JInternalFrame2 extends JInternalFrame {
             miModelo.performSearch(lastSelectedColumn, "");
         }
 
-        buscaJTextField.setText("");
+        clientSearchJTextField.setText("");
 
         // Borrem la selecció de l'últim registre:
         lastSelectedRow = -1;
@@ -408,20 +410,19 @@ public class JInternalFrame2 extends JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton acceptJButton;
-    private javax.swing.JButton addClientButton;
-    private javax.swing.JTextField buscaJTextField;
+    private javax.swing.JButton acceptClientJButton;
+    private javax.swing.JButton addClientJButton;
     private javax.swing.JTable clientJTableForm;
-    private javax.swing.JButton deleteClientButton;
+    private javax.swing.JLabel clientSearchJLabel;
+    private javax.swing.JTextField clientSearchJTextField;
+    private javax.swing.JButton deleteClientJButton;
     private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane8;
     // End of variables declaration//GEN-END:variables
     private ClientTableModel miModelo;
     private DefaultTableCellRenderer renderer;
-    //private TableSorter modeloOrdenado;
     private TableColumnModel tableColumnModel;
     private int lastSelectedRow = -1;
     private int lastSelectedColumn = 2;
