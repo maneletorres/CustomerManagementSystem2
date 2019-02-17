@@ -2,9 +2,12 @@ package Vista;
 
 import Entitat.Pet;
 import java.awt.Image;
+import java.beans.PropertyVetoException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -83,12 +86,6 @@ public class JInternalFrame1 extends JInternalFrame {
 
         clientJTextField.setEnabled(false);
 
-        idJTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                idJTextFieldKeyReleased(evt);
-            }
-        });
-
         ImageIcon imageIcon = new ImageIcon("lib/eye-outline.png"); // load the image to a imageIcon
         Image image = imageIcon.getImage(); // transform it
         Image newimg = image.getScaledInstance(15, 15,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
@@ -109,41 +106,38 @@ public class JInternalFrame1 extends JInternalFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(idJTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(nomJTextField))
+                        .addGap(0, 31, Short.MAX_VALUE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel5))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(clientJTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+                            .addComponent(naixementJTextField))
+                        .addGap(18, 18, 18)
+                        .addComponent(clientJButton)
+                        .addGap(235, 235, 235))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
-                        .addComponent(comentarisJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel4Layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addGap(60, 60, 60)
-                            .addComponent(idJTextField))
-                        .addGroup(jPanel4Layout.createSequentialGroup()
-                            .addComponent(jLabel3)
-                            .addGap(35, 35, 35)
-                            .addComponent(especieJTextField))
-                        .addGroup(jPanel4Layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addGap(50, 50, 50)
-                            .addComponent(nomJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(39, 39, 39)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(clientJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(18, 18, 18)
-                        .addComponent(naixementJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(clientJButton)
-                .addContainerGap(315, Short.MAX_VALUE))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(especieJTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(comentarisJTextField))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(30, 30, 30)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -178,22 +172,22 @@ public class JInternalFrame1 extends JInternalFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(272, Short.MAX_VALUE)
                 .addComponent(acceptJButton)
-                .addGap(101, 101, 101)
+                .addGap(98, 98, 98)
                 .addComponent(cancelJButton)
                 .addGap(275, 275, 275))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 0, 0)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(acceptJButton)
                     .addComponent(cancelJButton))
-                .addGap(0, 107, Short.MAX_VALUE))
+                .addGap(0, 21, Short.MAX_VALUE))
         );
 
         jDesktopPane1.setLayer(jPanel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -208,7 +202,7 @@ public class JInternalFrame1 extends JInternalFrame {
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 351, Short.MAX_VALUE)
+            .addGap(0, 273, Short.MAX_VALUE)
             .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -221,17 +215,13 @@ public class JInternalFrame1 extends JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void acceptJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptJButtonActionPerformed
-        /*if (!codiJTextField.getText().equals("")) {
-            c.setCodi_id(codiJTextField.getText());
-        }*/
-
         if (idJTextField != null && !idJTextField.getText().equals("") && nomJTextField != null && !nomJTextField.getText().equals("")
                 && especieJTextField != null && !especieJTextField.getText().equals("")
                 && comentarisJTextField != null && !comentarisJTextField.getText().equals("")
@@ -270,69 +260,32 @@ public class JInternalFrame1 extends JInternalFrame {
     }//GEN-LAST:event_cancelJButtonActionPerformed
 
     private void clientJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clientJButtonActionPerformed
-        if (isEditing) {
-            JOptionPane.showMessageDialog(this,
-                    "No pots elegir una mascota mentre estàs editant una cel.la.", "Informació",
-                    JOptionPane.INFORMATION_MESSAGE);
-        } else {
+        if (!isWindowThrown) {
             JInternalFrame2 jInternalFrame = new JInternalFrame2(clientJTextField);
-            this.moveToBack();
-            // this fa referencia a jinternalframe4
-            System.out.println(this.getClass());
-
+            jInternalFrame.addInternalFrameListener(new InternalFrameAdapter() {
+                @Override
+                public void internalFrameClosed(InternalFrameEvent e) {
+                    isWindowThrown = false;
+                }
+            });
             jDesktopPane1.add(jInternalFrame);
-            jInternalFrame.moveToFront();
-            jInternalFrame.show();
-            /*try {
-                jInternalFrame.setSelected(false);
+
+            try {
+                // This fa referència a JInternalFrame1:
+                //this.setSelected(false);
+                jInternalFrame.setSelected(true);
             } catch (PropertyVetoException ex) {
                 Logger.getLogger(JInternalFrame1.class.getName()).log(Level.SEVERE, null, ex);
-            }*/
-
-            if (!isWindowThrown) {
-                jInternalFrame.addInternalFrameListener(new InternalFrameAdapter() {
-                    @Override
-                    public void internalFrameClosed(InternalFrameEvent e) {
-                        isWindowThrown = false;
-                    }
-
-                });
-                //jDesktopPane1.add(jInternalFrame);
-
-                isWindowThrown = true;
-            } else {
-                JOptionPane.showMessageDialog(this,
-                        "No pots obrir una nova finestra si ja roman oberta altra.", "Informació",
-                        JOptionPane.INFORMATION_MESSAGE);
-            }
-        }
-    }//GEN-LAST:event_clientJButtonActionPerformed
-
-    private void idJTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_idJTextFieldKeyReleased
-        // Alternative 1:
-        //miModelo.updateData(buscaJTextField.getText());
-
-        // Alternative 2:
-        if (isEditing) {
-            int length = idJTextField.getText().length();
-
-            // Si hi havia text al buscador abans d'introduïr el nou caràcter,
-            // no deixarem afegir-ne més, però el text anterior es mantindrà:
-            if (length > 1) {
-                idJTextField.setText(idJTextField.getText().substring(0, length - 1));
-                // Si en canvi al buscador sols hi ha un caràcter (l'acabat
-                // d'introduïr), borrarem el contingut del buscador per complet:
-            } else {
-                idJTextField.setText("");
             }
 
-            JOptionPane.showMessageDialog(this,
-                    "No pots realitzar una búsqueda mentre estàs editant una cel.la.", "Informació",
-                    JOptionPane.INFORMATION_MESSAGE);
+            isWindowThrown = true;
         } else {
-            //deleteForm();
+            JOptionPane.showMessageDialog(this,
+                    "No pots obrir una nova finestra si ja roman oberta altra.", "Informació",
+                    JOptionPane.INFORMATION_MESSAGE);
         }
-    }//GEN-LAST:event_idJTextFieldKeyReleased
+
+    }//GEN-LAST:event_clientJButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -383,6 +336,5 @@ public class JInternalFrame1 extends JInternalFrame {
     private javax.swing.JTextField naixementJTextField;
     private javax.swing.JTextField nomJTextField;
     // End of variables declaration//GEN-END:variables
-    private boolean isEditing;
     private boolean isWindowThrown;
 }
