@@ -16,7 +16,6 @@ import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -29,7 +28,7 @@ public class JInternalFrame3 extends JInternalFrame {
 
         super.setVisible(true);
         super.setClosable(true);
-        super.setTitle("Clients");
+        super.setTitle("Consulta Clients");
         super.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
@@ -65,7 +64,7 @@ public class JInternalFrame3 extends JInternalFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         petJTableForm.setModel(petModel);
-        tableColumnModel = petJTableForm.getColumnModel();
+        //tableColumnModel = petJTableForm.getColumnModel();
         jScrollPane8.setViewportView(petJTableForm);
 
         jLabel2.setText("Codi:");
@@ -254,7 +253,7 @@ public class JInternalFrame3 extends JInternalFrame {
             }
         });
 
-        clientJDialog.setSize(new Dimension(400, 200));
+        clientJDialog.setSize(new Dimension(600, 200));
         clientJDialog.setVisible(true);
     }//GEN-LAST:event_clientJButtonActionPerformed
 
@@ -311,6 +310,5 @@ public class JInternalFrame3 extends JInternalFrame {
     private javax.swing.JTable petJTableForm;
     // End of variables declaration//GEN-END:variables
     private PetTableModel petModel;
-    private TableColumnModel tableColumnModel;
     private JDialog clientJDialog;
 }
