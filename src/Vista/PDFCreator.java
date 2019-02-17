@@ -13,6 +13,7 @@ import com.itextpdf.layout.border.Border;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.text.BadElementException;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -61,10 +62,9 @@ public class PDFCreator {
             dataset.setValue(c.getCodi_id(), pets.size());
         }
 
-        PieChart3D pieChart;
         try {
-            pieChart = new PieChart3D(dataset, "Informe de clients");
-            table.addCell(new Cell(1, 5).add(new Paragraph().add(pieChart.getITextImage())).setBorder(Border.NO_BORDER));
+            PieChart3D pieChart = new PieChart3D(dataset, "Informe de clients");
+            table.addCell(new Cell(1, 5).add(new Paragraph().setTextAlignment(TextAlignment.CENTER).add(pieChart.getITextImage())).setBorder(Border.NO_BORDER));
         } catch (BadElementException ex) {
             Logger.getLogger(PDFCreator.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -78,7 +78,7 @@ public class PDFCreator {
         for (int i = 0; i < clients.size(); i++) {
             Client c = clients.get(i);
 
-            // Primer mostrem el text FACTURA amb un ColSpan de 2
+            // Primer mostrem el nom del client amb un ColSpan de 5
             Cell cela = new Cell(1, 5).add(c.getNom()).setFont(font);
             table.addCell(cela);
 
