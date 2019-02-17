@@ -1,7 +1,7 @@
 package Vista;
 
-import static Vista.PDFCreator.createPDF1;
-import static Vista.PDFCreator.createPDF2;
+import static Utilitats.PDFCreator.createPDF1;
+import static Utilitats.PDFCreator.createPDF2;
 import java.beans.PropertyVetoException;
 import java.io.File;
 import java.io.IOException;
@@ -12,6 +12,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
+import javax.swing.filechooser.FileFilter;
 
 /**
  *
@@ -262,6 +263,20 @@ public class FinestraPrincipal extends javax.swing.JFrame {
                 new FinestraPrincipal().setVisible(true);
             }
         });
+    }
+
+    class PDFFilter extends FileFilter {
+
+        @Override
+        public boolean accept(File f) {
+            String nombre = f.getName();
+            return nombre.substring(Math.max(nombre.length() - 4, 0)).equals(".pdf");
+        }
+
+        @Override
+        public String getDescription() {
+            return "Ficheros de tipo PDF";
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
