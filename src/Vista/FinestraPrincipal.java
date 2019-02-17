@@ -1,19 +1,17 @@
 package Vista;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import static Vista.PDFCreator.createPDF1;
+import static Vista.PDFCreator.createPDF2;
+import java.beans.PropertyVetoException;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
-import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
-import javax.swing.filechooser.FileFilter;
 
 /**
  *
@@ -31,9 +29,6 @@ public class FinestraPrincipal extends javax.swing.JFrame {
         jMenu1.setVisible(false);
         isWindowThrown = false;
         isInternalFrameOpen = false;
-
-        //printButton.addActionListener(new ButtonListener());
-        //listButton.addActionListener(new ButtonListener());
     }
 
     /**
@@ -137,7 +132,26 @@ public class FinestraPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_exitJMenuItemActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        jInternalFrameCreation(new JInternalFrame1());
+        if (!isWindowThrown) {
+            JInternalFrame1 jInternalFrame = new JInternalFrame1();
+            jInternalFrame.addInternalFrameListener(new InternalFrameAdapter() {
+                @Override
+                public void internalFrameClosed(InternalFrameEvent e) {
+                    isWindowThrown = false;
+                }
+            });
+            jDesktopPane1.add(jInternalFrame);
+
+            try {
+                jInternalFrame.setSelected(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(FinestraPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            isWindowThrown = true;
+        } else {
+            showInfoDialog();
+        }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -167,8 +181,13 @@ public class FinestraPrincipal extends javax.swing.JFrame {
                     jMenu1.setVisible(true);
                 }
             });
-
             jDesktopPane1.add(jInternalFrame3);
+
+            try {
+                jInternalFrame3.setSelected(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(FinestraPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
             isInternalFrameOpen = true;
             isWindowThrown = true;
@@ -180,15 +199,12 @@ public class FinestraPrincipal extends javax.swing.JFrame {
     private void printButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printButtonActionPerformed
         try {
             JButton open = new JButton();
-            File defaultFile = new File("clients.pdf");
-
             fileChooser = new JFileChooser();
-            fileChooser.setSelectedFile(defaultFile);
+            fileChooser.setSelectedFile(new File("clients.pdf"));
             fileChooser.setFileFilter(new PDFFilter());
             if (fileChooser.showSaveDialog(open) == JFileChooser.APPROVE_OPTION) {
                 File file = fileChooser.getSelectedFile();
-                PDFCreator tac = new PDFCreator();
-                tac.createPDF1(file.getAbsolutePath());
+                createPDF1(file.getAbsolutePath());
             }
         } catch (IOException ex) {
             Logger.getLogger(FinestraPrincipal.class.getName()).log(Level.SEVERE, null, ex);
@@ -198,37 +214,17 @@ public class FinestraPrincipal extends javax.swing.JFrame {
     private void listButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listButtonActionPerformed
         try {
             JButton open = new JButton();
-            File defaultFile = new File("animals.pdf");
-
             fileChooser = new JFileChooser();
-            fileChooser.setSelectedFile(defaultFile);
+            fileChooser.setSelectedFile(new File("animals.pdf"));
             fileChooser.setFileFilter(new PDFFilter());
             if (fileChooser.showSaveDialog(open) == JFileChooser.APPROVE_OPTION) {
                 File file = fileChooser.getSelectedFile();
-                PDFCreator tac = new PDFCreator();
-                tac.createPDF2(file.getAbsolutePath());
+                createPDF2(file.getAbsolutePath());
             }
         } catch (IOException ex) {
             Logger.getLogger(FinestraPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_listButtonActionPerformed
-
-    public void jInternalFrameCreation(JInternalFrame jInternalFrame) {
-        if (!isWindowThrown) {
-            jInternalFrame.addInternalFrameListener(new InternalFrameAdapter() {
-                @Override
-                public void internalFrameClosed(InternalFrameEvent e) {
-                    isWindowThrown = false;
-                }
-
-            });
-            jDesktopPane1.add(jInternalFrame);
-
-            isWindowThrown = true;
-        } else {
-            showInfoDialog();
-        }
-    }
 
     public void showInfoDialog() {
         JOptionPane.showMessageDialog(this,
@@ -236,7 +232,6 @@ public class FinestraPrincipal extends javax.swing.JFrame {
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
-    // ELIMINAR EL MAIN:
     /**
      * @param args the command line arguments
      */
@@ -283,35 +278,4 @@ public class FinestraPrincipal extends javax.swing.JFrame {
     private boolean isWindowThrown;
     private boolean isInternalFrameOpen;
     private JFileChooser fileChooser;
-    private JDialog fileChooserJDialog;
-
-    class ButtonListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if (e.getSource().equals(printButton)) {
-                if (fileChooser.showOpenDialog(new JDialog()) == JFileChooser.APPROVE_OPTION) {
-                    File f = fileChooser.getSelectedFile();
-                }
-            } else if (e.getSource().equals(new JDialog())) {
-                if (fileChooser.showSaveDialog(FinestraPrincipal.this) == JFileChooser.APPROVE_OPTION) {
-
-                }
-            }
-        }
-    }
-
-    class PDFFilter extends FileFilter {
-
-        @Override
-        public boolean accept(File f) {
-            String nombre = f.getName();
-            return nombre.substring(Math.max(nombre.length() - 4, 0)).equals(".pdf");
-        }
-
-        @Override
-        public String getDescription() {
-            return "Ficheros de tipo PDF";
-        }
-    }
 }
