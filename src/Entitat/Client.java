@@ -2,7 +2,7 @@ package Entitat;
 
 /**
  *
- * @author 2DAM IES EL JUST
+ * @author Manuel Espinosa Torres
  */
 public class Client {
 

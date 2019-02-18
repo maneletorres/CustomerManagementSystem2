@@ -98,5 +98,4 @@ public class Pet {
     public void setEspecie(String especie) {
         this.especie = especie;
     }
-
 }
