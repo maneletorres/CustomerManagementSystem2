@@ -107,7 +107,7 @@
                     </Property>
                   </Properties>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="petModel = new Vista.PetTableModel();"/>
+                    <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="petModel = new Model.PetTableModel();"/>
                   </AuxValues>
                 </Component>
               </SubComponents>

@@ -3,6 +3,8 @@ package Vista;
 import BLL.PetBLL;
 import Entitat.Client;
 import Entitat.Pet;
+import Model.ClientTableModel;
+import Model.PetTableModel;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -44,7 +46,7 @@ public class JInternalFrame3 extends JInternalFrame {
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
-        petModel = new Vista.PetTableModel();
+        petModel = new Model.PetTableModel();
         petJTableForm = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -226,14 +228,14 @@ public class JInternalFrame3 extends JInternalFrame {
         clientJDialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         clientJDialog.setContentPane(jPanel);
 
-        final ClientTableModel clientModel = new Vista.ClientTableModel(false);
+        final ClientTableModel clientModel = new ClientTableModel(false);
         table.setModel(clientModel);
         table.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 if (evt.getClickCount() == 2) {
                     try {
-                        Client client = (Client) clientModel.clientData.get(table.getSelectedRow());
+                        Client client = (Client) clientModel.getClientData().get(table.getSelectedRow());
 
                         codiJLabel.setText(client.getCodi_id());
                         nomJLabel.setText(client.getNom());
@@ -242,7 +244,7 @@ public class JInternalFrame3 extends JInternalFrame {
                         nPortalJLabel.setText(client.getN_de_portal());
                         codiPostalJLabel.setText(client.getCodi_postal());
 
-                        petModel.petData = (ArrayList<Pet>) new PetBLL().obtenirMascotes(client.getCodi_id());
+                        petModel.setPetData((ArrayList<Pet>) new PetBLL().obtenirMascotes(client.getCodi_id()));
                         petModel.fireTableDataChanged();
 
                         clientJDialog.setVisible(false);

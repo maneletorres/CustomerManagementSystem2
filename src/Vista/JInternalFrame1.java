@@ -1,6 +1,7 @@
 package Vista;
 
 import Entitat.Pet;
+import Model.PetTableModel;
 import java.awt.Image;
 import java.beans.PropertyVetoException;
 import java.text.ParseException;

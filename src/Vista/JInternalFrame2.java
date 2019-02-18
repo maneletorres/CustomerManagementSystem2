@@ -1,6 +1,7 @@
 package Vista;
 
 import Entitat.Client;
+import Model.ClientTableModel;
 import java.awt.Color;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -55,7 +56,7 @@ public class JInternalFrame2 extends JInternalFrame {
         acceptClientJButton = new javax.swing.JButton();
         deleteClientJButton = new javax.swing.JButton();
         jScrollPane8 = new javax.swing.JScrollPane();
-        miModelo = new Vista.ClientTableModel(true);
+        miModelo = new Model.ClientTableModel(true);
         clientJTableForm = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         clientSearchJLabel = new javax.swing.JLabel();
@@ -201,7 +202,7 @@ public class JInternalFrame2 extends JInternalFrame {
         } else {
             int selectedRow = clientJTableForm.getSelectedRow();
             if (selectedRow != -1) {
-                Client client = (Client) miModelo.clientData.get(selectedRow);
+                Client client = (Client) miModelo.getClientData().get(selectedRow);
                 if (client.getCodi_id() != null && !client.getCodi_id().equals("")) {
                     jTextField.setText(client.getCodi_id());
 
@@ -227,7 +228,7 @@ public class JInternalFrame2 extends JInternalFrame {
         } else {
             if (lastSelectedRow != -1) {
                 if (!miModelo.getIsClientEditing()) {
-                    Client c = (Client) miModelo.clientData.get(lastSelectedRow);
+                    Client c = (Client) miModelo.getClientData().get(lastSelectedRow);
                     if (c.getCodi_id() != null && !c.getCodi_id().equals("")) {
                         int selection = JOptionPane.showConfirmDialog(this,
                                 "Estas segur d'eliminar el següent client?\n\n" + c.toString(), "Eliminar",
