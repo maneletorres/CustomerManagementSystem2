@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author 2DAM IES EL JUST
+ * @author Manuel Espinosa Torres
  */
 public class ClientDAO extends Connexio {
 
@@ -73,7 +73,7 @@ public class ClientDAO extends Connexio {
             ps.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-            throw new Exception("No s'ha pogut inserir el client");
+            throw new Exception("No s'ha pogut inserir el client. ERROR: " + ex.getMessage());
         }
 
         return true;
@@ -93,7 +93,7 @@ public class ClientDAO extends Connexio {
             ps.executeUpdate();
 
         } catch (SQLException ex) {
-            System.out.println(ex);
+            System.out.println("No s'ha pogut actualitzar el client. ERROR: " + ex.getMessage());
             throw new SQLException();
         }
 
@@ -108,7 +108,7 @@ public class ClientDAO extends Connexio {
             ps.executeUpdate();
 
         } catch (SQLException ex) {
-            System.out.println(ex);
+            System.out.println("No s'ha pogut eliminar el client. ERROR: " + ex.getMessage());
             throw new SQLException();
         }
 

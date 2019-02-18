@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author 2DAM IES EL JUST
+ * @author Manuel Espinosa Torres
  */
 public class PetBLL {
 

@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 /**
  *
- * @author 2DAM IES EL JUST
+ * @author Manuel Espinosa Torres
  */
 public class Connexio {
 
@@ -17,20 +17,16 @@ public class Connexio {
     protected Statement statement = null;
     protected String db = "lib/Veterinaria.sqlite";
 
-    public void Connexio() {
-    }
-
-    // Constructor de clase que es conecta a la base de dades SQLite:
     public Connexio() throws Exception {
-        System.out.println("Conectant");
+        System.out.println("Connectant...");
 
         try {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:sqlite:" + this.db);
-            System.out.println("Conectado a la base de datos SQLite [ " + this.db + "]");
+            System.out.println("Connectat a la base de dades SQLite [ " + this.db + "].");
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e);
-            throw new Exception("Error connectant");
+            throw new Exception("Error connectant amb la base de dades.");
         }
     }
 }

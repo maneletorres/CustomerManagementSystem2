@@ -4,12 +4,10 @@ import Entitat.Pet;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
- * @author 2DAM IES EL JUST
+ * @author Manuel Espinosa Torres
  */
 public class PetDAO extends Connexio {
 
@@ -69,7 +67,7 @@ public class PetDAO extends Connexio {
         return Integer.toString(valor);
     }
 
-    public boolean insertPet(Pet p) {
+    public boolean insertPet(Pet p) throws SQLException {
         PreparedStatement ps;
         try {
             ps = connection.prepareStatement("Insert into animal (num_id,nom,data_naixement,chip,comentaris,historial,codi_id,data,tractament,especie) values (?,?,?,?,?,?,?,?,?,?)");
@@ -87,12 +85,8 @@ public class PetDAO extends Connexio {
 
             ps.executeUpdate();
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-            try {
-                throw new Exception("No s'ha pogut inserir la mascota.");
-            } catch (Exception ex1) {
-                Logger.getLogger(PetDAO.class.getName()).log(Level.SEVERE, null, ex1);
-            }
+            System.out.println("No s'ha pogut inserir la mascota. ERROR: " + ex.getMessage());
+            throw new SQLException();
         }
 
         return true;
@@ -116,7 +110,7 @@ public class PetDAO extends Connexio {
             ps.executeUpdate();
 
         } catch (SQLException ex) {
-            System.out.println(ex);
+            System.out.println("No s'ha pogut actualitzar la mascota. ERROR: " + ex.getMessage());
             throw new SQLException();
         }
 
@@ -131,7 +125,7 @@ public class PetDAO extends Connexio {
             ps.executeUpdate();
 
         } catch (SQLException ex) {
-            System.out.println(ex);
+            System.out.println("No s'ha pogut eliminar la mascota. ERROR: " + ex.getMessage());
             throw new SQLException();
         }
 
