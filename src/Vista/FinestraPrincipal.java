@@ -2,12 +2,13 @@ package Vista;
 
 import static Utilitats.Utilities.createPDF1;
 import static Utilitats.Utilities.createPDF2;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.beans.PropertyVetoException;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.event.InternalFrameAdapter;
@@ -135,6 +136,11 @@ public class FinestraPrincipal extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         if (!isWindowThrown) {
             JInternalFrame1 jInternalFrame = new JInternalFrame1();
+
+            // Aquestes dues sentències permeten que la finestra llançada aparegui centrada:
+            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+            jInternalFrame.setLocation(dim.width / 2 - jInternalFrame.getSize().width / 2, dim.height / 2 - jInternalFrame.getSize().height / 2);
+
             jInternalFrame.addInternalFrameListener(new InternalFrameAdapter() {
                 @Override
                 public void internalFrameClosed(InternalFrameEvent e) {
@@ -157,6 +163,11 @@ public class FinestraPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         JInternalFrame3 jInternalFrame3 = new JInternalFrame3();
+
+        // Aquestes dues sentències permeten que la finestra llançada aparegui centrada:
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        jInternalFrame3.setLocation(dim.width / 2 - jInternalFrame3.getSize().width / 2, dim.height / 2 - jInternalFrame3.getSize().height / 2);
+
         if (!isWindowThrown) {
             if (!isInternalFrameOpen) {
                 jMenu1.setVisible(true);
@@ -199,11 +210,10 @@ public class FinestraPrincipal extends javax.swing.JFrame {
 
     private void printButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printButtonActionPerformed
         try {
-            JButton open = new JButton();
             fileChooser = new JFileChooser();
             fileChooser.setSelectedFile(new File("clients.pdf"));
             fileChooser.setFileFilter(new PDFFilter());
-            if (fileChooser.showSaveDialog(open) == JFileChooser.APPROVE_OPTION) {
+            if (fileChooser.showSaveDialog(jDesktopPane1) == JFileChooser.APPROVE_OPTION) {
                 File file = fileChooser.getSelectedFile();
                 createPDF1(file.getAbsolutePath());
             }
@@ -214,11 +224,10 @@ public class FinestraPrincipal extends javax.swing.JFrame {
 
     private void listButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listButtonActionPerformed
         try {
-            JButton open = new JButton();
             fileChooser = new JFileChooser();
             fileChooser.setSelectedFile(new File("animals.pdf"));
             fileChooser.setFileFilter(new PDFFilter());
-            if (fileChooser.showSaveDialog(open) == JFileChooser.APPROVE_OPTION) {
+            if (fileChooser.showSaveDialog(jDesktopPane1) == JFileChooser.APPROVE_OPTION) {
                 File file = fileChooser.getSelectedFile();
                 createPDF2(file.getAbsolutePath());
             }
