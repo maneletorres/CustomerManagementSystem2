@@ -98,4 +98,18 @@ public class Pet {
     public void setEspecie(String especie) {
         this.especie = especie;
     }
+
+    @Override
+    public String toString() {
+        String result = "Número ID: " + num_id + "\n";
+        result += "Nom: " + nom + "\n";
+        result += "Especie: " + especie + "\n";
+        result += "Comentaris: " + comentaris + "\n";
+        result += "Client ID: " + codi_id + "\n";
+        result += "Xip: " + xip + "\n";
+        result += "Data de naixement: " + data_naixement.toString() + "\n";
+        result += "Tractament: " + tractament + "\n";
+
+        return result;
+    }
 }
