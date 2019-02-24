@@ -1,5 +1,8 @@
 package Vista;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 /**
  *
  * @author Manuel Espinosa Torres
@@ -12,7 +15,11 @@ public class JFrameAuthentication extends javax.swing.JFrame {
     public JFrameAuthentication() {
         initComponents();
 
+        // Sentències que permeten que la finestra llançada aparegui centrada:
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        super.setLocation(dim.width / 2 - super.getSize().width / 2, dim.height / 2 - super.getSize().height / 2);
         super.setResizable(false);
+        super.setTitle("Autenticació");
     }
 
     /**
@@ -113,13 +120,17 @@ public class JFrameAuthentication extends javax.swing.JFrame {
 
     private void okJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okJButtonActionPerformed
         if (loginJTextField.getText().equals(login) && passJTextField.getText().equals(pass)) {
-            setVisible(false);
+            // S'esborra el JFrameAuthentication:
+            super.dispose();
 
             /* Create and display the form */
             java.awt.EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    new FinestraPrincipal().setVisible(true);
+                    FinestraPrincipal fp = new FinestraPrincipal();
+                    fp.setVisible(true);
+                    // Aquesta línia de codi fa que la finestra aparegui maximitzada:
+                    fp.setExtendedState(MAXIMIZED_BOTH);
                 }
             });
         } else {
