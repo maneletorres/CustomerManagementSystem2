@@ -80,10 +80,18 @@ public class ClientTableModel extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int row, int col) {
-        if (col == 0) {
+        // Alternativa 1 - La finestra 'Selecció Clients' permet l'edició de qualsevol registre / client:
+        /*if (col == 0) {
             return false;
         }
-        return isCellEditable;
+        return isCellEditable;*/
+
+        // Alternativa 2 - La finestra 'Selecció Clients' permet l'edició únicament del registre que s'afig:
+        if (isClientEditing) {
+            return row == this.getRowCount() - 1;
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -144,17 +152,11 @@ public class ClientTableModel extends AbstractTableModel {
                     break;
             }
 
-            if (checkClient(client)) {
-                try {
-                    ClientBLL cbll = new ClientBLL();
-                    cbll.updateClient(client);
-                    isClientEditing = false;
-                } catch (Exception ex) {
-                    System.out.println("No s'ha pogut actualitzar el client. ERROR: " + ex.getMessage());
-                }
-            } else {
-                isClientEditing = true;
-                System.out.println("Has d'omplir totes les columnes per actualitzar un nou client.");
+            try {
+                ClientBLL cbll = new ClientBLL();
+                cbll.updateClient(client);
+            } catch (Exception ex) {
+                System.out.println("No s'ha pogut actualitzar el client. ERROR: " + ex.getMessage());
             }
         }
 
@@ -163,10 +165,6 @@ public class ClientTableModel extends AbstractTableModel {
 
     public ArrayList getClientData() {
         return clientData;
-    }
-
-    public void setClientData(ArrayList clientData) {
-        this.clientData = clientData;
     }
 
     public boolean getIsClientEditing() {
