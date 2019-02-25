@@ -2,14 +2,18 @@ package Vista;
 
 import static Utilitats.Utilities.createPDF1;
 import static Utilitats.Utilities.createPDF2;
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.beans.PropertyVetoException;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
@@ -28,9 +32,17 @@ public class FinestraPrincipal extends javax.swing.JFrame {
         initComponents();
 
         super.setTitle("Pràctica final");
-        jMenu1.setVisible(false);
         isWindowThrown = false;
         isInternalFrameOpen = false;
+
+        // ComponentAdapter que controla quan es redimensiona l'escriptori:
+        jDesktopPane1.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(final ComponentEvent e) {
+                width = jDesktopPane1.getWidth();
+                height = jDesktopPane1.getHeight();
+            }
+        });
     }
 
     /**
@@ -48,9 +60,6 @@ public class FinestraPrincipal extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         exitJMenuItem = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        printButton = new javax.swing.JMenuItem();
-        listButton = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,26 +102,6 @@ public class FinestraPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(optionJMenu);
 
-        jMenu1.setText("Informes");
-
-        printButton.setText("Imprimir en PDF");
-        printButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                printButtonActionPerformed(evt);
-            }
-        });
-        jMenu1.add(printButton);
-
-        listButton.setText("Llistar animals");
-        listButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listButtonActionPerformed(evt);
-            }
-        });
-        jMenu1.add(listButton);
-
-        jMenuBar1.add(jMenu1);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -136,11 +125,8 @@ public class FinestraPrincipal extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         if (!isWindowThrown) {
             JInternalFrame1 jInternalFrame = new JInternalFrame1();
-
-            // Aquestes dues sentències permeten que la finestra llançada aparegui centrada:
-            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-            jInternalFrame.setLocation(dim.width / 2 - jInternalFrame.getSize().width / 2, dim.height / 2 - jInternalFrame.getSize().height / 2);
-
+            // Sentència que permet que la finestra llançada aparegui centrada:
+            jInternalFrame.setLocation(jDesktopPane1.getWidth() / 2 - jInternalFrame.getSize().width / 2, jDesktopPane1.getHeight() / 2 - jInternalFrame.getSize().height / 2);
             jInternalFrame.addInternalFrameListener(new InternalFrameAdapter() {
                 @Override
                 public void internalFrameClosed(InternalFrameEvent e) {
@@ -163,14 +149,15 @@ public class FinestraPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         JInternalFrame3 jInternalFrame3 = new JInternalFrame3();
-
-        // Aquestes dues sentències permeten que la finestra llançada aparegui centrada:
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        jInternalFrame3.setLocation(dim.width / 2 - jInternalFrame3.getSize().width / 2, dim.height / 2 - jInternalFrame3.getSize().height / 2);
+        // Sentència que permet que la finestra llançada aparegui centrada:
+        jInternalFrame3.setLocation(jDesktopPane1.getWidth() / 2 - jInternalFrame3.getSize().width / 2, jDesktopPane1.getHeight() / 2 - jInternalFrame3.getSize().height / 2);
 
         if (!isWindowThrown) {
+            isWindowThrown = true;
+
             if (!isInternalFrameOpen) {
-                jMenu1.setVisible(true);
+                isInternalFrameOpen = true;
+                createMenu();
             }
 
             jInternalFrame3.addInternalFrameListener(new InternalFrameAdapter() {
@@ -178,19 +165,19 @@ public class FinestraPrincipal extends javax.swing.JFrame {
                 public void internalFrameClosed(InternalFrameEvent e) {
                     isWindowThrown = false;
                     isInternalFrameOpen = false;
-                    jMenu1.setVisible(false);
+                    jMenuBar1.remove(jMenu);
                 }
 
                 @Override
                 public void internalFrameDeactivated(InternalFrameEvent e
                 ) {
-                    jMenu1.setVisible(false);
+                    jMenu.setVisible(false);
                 }
 
                 @Override
                 public void internalFrameActivated(InternalFrameEvent e
                 ) {
-                    jMenu1.setVisible(true);
+                    jMenu.setVisible(true);
                 }
             });
             jDesktopPane1.add(jInternalFrame3);
@@ -200,46 +187,103 @@ public class FinestraPrincipal extends javax.swing.JFrame {
             } catch (PropertyVetoException ex) {
                 Logger.getLogger(FinestraPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-            isInternalFrameOpen = true;
-            isWindowThrown = true;
         } else {
             showInfoDialog();
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void printButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printButtonActionPerformed
-        try {
-            fileChooser = new JFileChooser();
-            fileChooser.setSelectedFile(new File("clients.pdf"));
-            fileChooser.setFileFilter(new PDFFilter());
-            if (fileChooser.showSaveDialog(jDesktopPane1) == JFileChooser.APPROVE_OPTION) {
-                File file = fileChooser.getSelectedFile();
-                createPDF1(file.getAbsolutePath());
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(FinestraPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_printButtonActionPerformed
+    public static int getJDesktopPane1Width() {
+        return width;
+    }
 
-    private void listButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listButtonActionPerformed
-        try {
-            fileChooser = new JFileChooser();
-            fileChooser.setSelectedFile(new File("animals.pdf"));
-            fileChooser.setFileFilter(new PDFFilter());
-            if (fileChooser.showSaveDialog(jDesktopPane1) == JFileChooser.APPROVE_OPTION) {
-                File file = fileChooser.getSelectedFile();
-                createPDF2(file.getAbsolutePath());
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(FinestraPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_listButtonActionPerformed
+    public static int getJDesktopPane1Height() {
+        return height;
+    }
 
     public void showInfoDialog() {
         JOptionPane.showMessageDialog(this,
                 "No pots obrir una nova finestra si ja roman oberta altra.", "Informació",
                 JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void createMenu() {
+        jMenu = new JMenu();
+        jMenu.setText("Informes");
+        jMenu.setVisible(true);
+
+        JMenuItem jMenuItem1 = new JMenuItem();
+        jMenuItem1.setText("Llistar animals per client");
+        jMenuItem1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                JFileChooserCreation(0);
+            }
+        });
+        jMenu.add(jMenuItem1);
+
+        JMenuItem jMenuItem12 = new JMenuItem();
+        jMenuItem12.setText("Llistar animals");
+        jMenuItem12.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                JFileChooserCreation(1);
+            }
+        });
+        jMenu.add(jMenuItem12);
+
+        jMenuBar1.add(jMenu);
+    }
+
+    // Option 0 --> Llistar animals per client.
+    // Option 1 --> Llistar animals.
+    public void JFileChooserCreation(int option) {
+        try {
+            fileChooser = new JFileChooser() {
+                @Override
+                public void approveSelection() {
+                    File file = fileChooser.getSelectedFile();
+                    File fileWithoutExtension = new File(file.toString() + ".pdf");
+                    if ((file.exists() || fileWithoutExtension.exists()) && getDialogType() == SAVE_DIALOG) {
+                        int result = JOptionPane.showConfirmDialog(this, "El fitxer " + file.toString() + " ja existeix. El vols sobreescriure?", "Fitxer existent", JOptionPane.YES_NO_OPTION);
+                        switch (result) {
+                            case JOptionPane.YES_OPTION:
+                                super.approveSelection();
+                                return;
+                            case JOptionPane.NO_OPTION:
+                                return;
+                            case JOptionPane.CLOSED_OPTION:
+                                return;
+                        }
+                    }
+                    super.approveSelection();
+                }
+            };
+            fileChooser.setFileFilter(new PDFFilter());
+
+            if (option == 0) {
+                fileChooser.setSelectedFile(new File("clients.pdf"));
+                if (fileChooser.showSaveDialog(jDesktopPane1) == JFileChooser.APPROVE_OPTION) {
+                    File file = fileChooser.getSelectedFile();
+                    if (!file.toString().substring(Math.max(file.toString().length() - 4, 0)).equals(".pdf")) {
+                        file = new File(file.toString() + ".pdf");
+                    }
+
+                    createPDF1(file.getAbsolutePath());
+                }
+            } else if (option == 1) {
+                fileChooser.setSelectedFile(new File("animals.pdf"));
+                if (fileChooser.showSaveDialog(jDesktopPane1) == JFileChooser.APPROVE_OPTION) {
+                    File file = fileChooser.getSelectedFile();
+                    if (!file.toString().substring(Math.max(file.toString().length() - 4, 0)).equals(".pdf")) {
+                        file = new File(file.toString() + ".pdf");
+                    }
+
+                    createPDF2(file.getAbsolutePath());
+                }
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(FinestraPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     class PDFFilter extends FileFilter {
@@ -259,15 +303,15 @@ public class FinestraPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem exitJMenuItem;
     private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem listButton;
     private javax.swing.JMenu optionJMenu;
-    private javax.swing.JMenuItem printButton;
     // End of variables declaration//GEN-END:variables
     private boolean isWindowThrown;
     private boolean isInternalFrameOpen;
     private JFileChooser fileChooser;
+    private JMenu jMenu;
+    private static int width;
+    private static int height;
 }
