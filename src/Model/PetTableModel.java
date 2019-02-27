@@ -63,7 +63,7 @@ public class PetTableModel extends AbstractTableModel {
                 result = pet.getNom();
                 break;
             case 2:
-                result = pet.getData();
+                result = pet.getData_naixement();
                 break;
             case 3:
                 result = pet.getEspecie();
@@ -76,10 +76,6 @@ public class PetTableModel extends AbstractTableModel {
                 break;
         }
         return result;
-    }
-
-    public ArrayList getPetData() {
-        return petData;
     }
 
     public void setPetData(ArrayList petData) {
@@ -96,6 +92,24 @@ public class PetTableModel extends AbstractTableModel {
             fireTableDataChanged();
         } catch (Exception ex) {
             System.out.println("No s'ha pogut inserir la mascota de nom " + pet.getNom() + ". ERROR: " + ex.getMessage());
+        }
+    }
+
+    public String getMaxCodi() {
+        try {
+            return new PetBLL().maxCodi();
+        } catch (Exception ex) {
+            System.out.println("No s'ha pogut obtenir el codi màxim de les mascotes. ERROR: " + ex.getMessage());
+            return null;
+        }
+    }
+
+    public ArrayList getPetData(String codi_id) {
+        try {
+            return new PetBLL().obtenirMascotes(codi_id);
+        } catch (Exception ex) {
+            System.out.println("No s'han pogut obtenir les mascotes. ERROR: " + ex.getMessage());
+            return null;
         }
     }
 }
