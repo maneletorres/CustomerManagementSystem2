@@ -81,17 +81,17 @@ public class ClientTableModel extends AbstractTableModel {
     @Override
     public boolean isCellEditable(int row, int col) {
         // Alternativa 1 - La finestra 'Selecció Clients' permet l'edició de qualsevol registre / client:
-        /*if (col == 0) {
+        if (col == 0) {
             return false;
         }
-        return isCellEditable;*/
+        return isCellEditable;
 
         // Alternativa 2 - La finestra 'Selecció Clients' permet l'edició únicament del registre que s'afig:
-        if (isClientEditing) {
+        /*if (isClientEditing) {
             return row == this.getRowCount() - 1;
         } else {
             return false;
-        }
+        }*/
     }
 
     @Override
