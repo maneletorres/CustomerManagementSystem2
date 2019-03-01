@@ -1,9 +1,9 @@
 package Utilitats;
 
-import BLL.ClientBLL;
-import BLL.PetBLL;
 import Entitat.Client;
 import Entitat.Pet;
+import Model.ClientTableModel;
+import Model.PetTableModel;
 import com.itextpdf.io.font.FontConstants;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.font.PdfFont;
@@ -24,6 +24,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -61,14 +63,38 @@ public class Utilities {
             table.setWidthPercent(100);
 
             // Obtenció dels clients:
-            ArrayList<Client> clients = new ClientBLL().obtenirClients();
+            // Alternativa 1:
+            // ArrayList<Client> clients = new ClientBLL().obtenirClients();
+            // Alternativa 2:
+            ArrayList<Client> clients = new ClientTableModel(false).getClientData();
+
+            // Obtenció de les mascotes:
+            // Alternativa 1:
+            // ArrayList<Pet> pets = new PetBLL().obtenirMascotes("");
+            // Alternativa 2:
+            ArrayList<Pet> pets = new PetTableModel().getPetData("");
+
+            // ArrayList auxiliar:
+            ArrayList<String> especies = new ArrayList<>();
+            for (int i = 0; i < pets.size(); i++) {
+                Pet p = pets.get(i);
+                especies.add(p.getEspecie());
+            }
+
+            // Map per emmagatzemar les parelles d'especie i número d'aquestes:
+            Map<String, Integer> map = new HashMap<>();
+            for (String item : especies) {
+                if (map.containsKey(item)) {
+                    map.put(item, map.get(item) + 1);
+                } else {
+                    map.put(item, 1);
+                }
+            }
 
             // Creació del conjunt de dades que alimentaràn al gràfic circular en 3D:
             DefaultPieDataset dataset = new DefaultPieDataset();
-            for (int i = 0; i < clients.size(); i++) {
-                Client c = clients.get(i);
-
-                dataset.setValue(c.getCodi_id(), new PetBLL().obtenirMascotes(c.getCodi_id()).size());
+            for (Map.Entry<String, Integer> entry : map.entrySet()) {
+                dataset.setValue(entry.getKey(), entry.getValue());
             }
 
             // Creació del gràfic circular en 3D:
@@ -79,7 +105,7 @@ public class Utilities {
             } catch (BadElementException ex) {
                 Logger.getLogger(Utilities.class.getName()).log(Level.SEVERE, null, ex);
             }*/
-            // Alternative 2 - Ús d'un mètode estàtic:
+            // Alternativa 2 - Ús d'un mètode estàtic:
             table.addCell(new Cell(1, 5).add(new Paragraph().setTextAlignment(TextAlignment.CENTER).add(createPieChart3D(dataset, "Informe de clients"))).setBorder(Border.NO_BORDER));
 
             // Creació d'un espaiat entre el gràfic circular en 3D i el text:
@@ -103,15 +129,19 @@ public class Utilities {
                 table.addCell(new Cell().add(new Paragraph("Xip").setFont(bold)));
 
                 // Obtenció de les mascotes:
-                ArrayList<Pet> pets = new PetBLL().obtenirMascotes(c.getCodi_id());
+                // Alternativa 1:
+                // ArrayList<Pet> petsPerClient = new PetBLL().obtenirMascotes(c.getCodi_id());
+                // Alternativa 2:
+                ArrayList<Pet> petsPerClient = new PetTableModel().getPetData(c.getCodi_id());
+
                 // Bucle intern que recorre les mascotes vinculades a un client:
-                for (int j = 0; j < pets.size(); j++) {
-                    Pet p = pets.get(j);
+                for (int j = 0; j < petsPerClient.size(); j++) {
+                    Pet p = petsPerClient.get(j);
 
                     // Afegim el cos de la taula cel·la a cel·la:
                     table.addCell(new Cell().add(new Paragraph(p.getNum_id()).setFont(font)));
                     table.addCell(new Cell().add(new Paragraph(p.getNom()).setFont(font)));
-                    table.addCell(new Cell().add(new Paragraph(p.getData().toString()).setFont(font)));
+                    table.addCell(new Cell().add(new Paragraph(p.getData_naixement().toString()).setFont(font)));
                     table.addCell(new Cell().add(new Paragraph(p.getEspecie()).setFont(font)));
                     table.addCell(new Cell().add(new Paragraph(p.getXip()).setFont(font)));
                 }
@@ -161,19 +191,19 @@ public class Utilities {
             process(table, "Xip", bold, true);
 
             // Obtenció de les mascotes:
-            ArrayList<Pet> pets = new PetBLL().obtenirMascotes("");
+            // Alternativa 1:
+            // ArrayList<Pet> pets = new PetBLL().obtenirMascotes("");
+            // Alternativa 2:
+            ArrayList<Pet> pets = new PetTableModel().getPetData("");
 
             // Bucle que recorre les mascotes emmagatzemades a la base de dades:
             for (int i = 0; i < pets.size(); i++) {
                 Pet p = pets.get(i);
 
-                // Primer mostrem el text FACTURA amb un ColSpan de 2
-                /*Cell cela = new Cell(1, 5).add(c.getNom()).setFont(font);
-            table.addCell(cela);*/
                 // Afegim el cos de la taula cel·la a cel·la:
                 table.addCell(new Cell().add(new Paragraph(p.getNum_id()).setFont(font)));
                 table.addCell(new Cell().add(new Paragraph(p.getNom()).setFont(font)));
-                table.addCell(new Cell().add(new Paragraph(p.getData().toString()).setFont(font)));
+                table.addCell(new Cell().add(new Paragraph(p.getData_naixement().toString()).setFont(font)));
                 table.addCell(new Cell().add(new Paragraph(p.getEspecie()).setFont(font)));
                 table.addCell(new Cell().add(new Paragraph(p.getXip()).setFont(font)));
             }
@@ -206,7 +236,7 @@ public class Utilities {
                     title, dataset, true, true, false);
 
             PieSectionLabelGenerator labelGenerator = new StandardPieSectionLabelGenerator(
-                    "Client {0} : ({2})", new DecimalFormat("0"), new DecimalFormat("0%"));
+                    "{0} : ({2})", new DecimalFormat("0"), new DecimalFormat("0%"));
             ((PiePlot) chart.getPlot()).setLabelGenerator(labelGenerator);
 
             BufferedImage bi = chart.createBufferedImage(400, 400);
