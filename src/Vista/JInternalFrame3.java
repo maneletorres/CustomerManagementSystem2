@@ -1,14 +1,11 @@
 package Vista;
 
-import BLL.PetBLL;
 import Entitat.Client;
-import Entitat.Pet;
 import Model.ClientTableModel;
 import Model.PetTableModel;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -223,10 +220,16 @@ public class JInternalFrame3 extends JInternalFrame {
         jPanel.add(sp);
 
         clientJDialog = new JDialog();
+
+        // Sentència que permet que la finestra llançada aparegui centrada:
+        clientJDialog.setLocation(FinestraPrincipal.getJDesktopPane1Width() / 2 - clientJDialog.getSize().width / 2, FinestraPrincipal.getJDesktopPane1Height() / 2 - clientJDialog.getSize().height / 2);
+
         clientJDialog.setTitle("Llista de clients");
         clientJDialog.setModal(true);
         clientJDialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         clientJDialog.setContentPane(jPanel);
+        clientJDialog.setResizable(false);
+        clientJDialog.pack();
 
         final ClientTableModel clientModel = new ClientTableModel(false);
         table.setModel(clientModel);
@@ -244,10 +247,11 @@ public class JInternalFrame3 extends JInternalFrame {
                         nPortalJLabel.setText(client.getN_de_portal());
                         codiPostalJLabel.setText(client.getCodi_postal());
 
-                        petModel.setPetData((ArrayList<Pet>) new PetBLL().obtenirMascotes(client.getCodi_id()));
+                        //petModel.setPetData((ArrayList<Pet>) new PetBLL().obtenirMascotes(client.getCodi_id()));
+                        petModel.setPetData(petModel.getPetData(client.getCodi_id()));
                         petModel.fireTableDataChanged();
 
-                        clientJDialog.setVisible(false);
+                        clientJDialog.dispose();
                     } catch (Exception ex) {
                         Logger.getLogger(JInternalFrame3.class.getName()).log(Level.SEVERE, null, ex);
                     }
