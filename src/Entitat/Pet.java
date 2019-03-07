@@ -39,8 +39,8 @@ public class Pet {
         return data_naixement;
     }
 
-    public void setData_naixement(Date data_naixment) {
-        this.data_naixement = data_naixment;
+    public void setData_naixement(Date data_naixement) {
+        this.data_naixement = data_naixement;
     }
 
     public String getXip() {
